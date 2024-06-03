@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_CXX_STANDARD 20)
+
+project(2DPhysicsSim)
+
+add_subdirectory(2d_physics_sim)
+
+set(OpenGL_GL_PREFERENCE GLVND)
+
+find_package(SDL2 REQUIRED)
+find_package(OpenGL REQUIRED)
+
