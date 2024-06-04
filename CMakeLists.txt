@@ -6,8 +6,6 @@ project(2DPhysicsSim)
 
 add_subdirectory(2d_physics_sim)
 
-set(OpenGL_GL_PREFERENCE GLVND)
-
 find_package(SDL2 REQUIRED)
-find_package(OpenGL REQUIRED)
+
 
