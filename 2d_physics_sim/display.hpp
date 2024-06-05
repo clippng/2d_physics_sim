@@ -2,9 +2,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
-
-#include "world.hpp"
-
 #include "utils.hpp"
 #include "framebuffer.hpp"
 
@@ -14,7 +11,7 @@
 
 class Display {
 public:
-	Display();
+	Display(std::shared_ptr<Framebuffer> framebuffer_ptr, std::shared_ptr<UnitUtilities> unit_utilities_ptr);
 	~Display();
 
 	bool running();
@@ -27,21 +24,15 @@ private:
 	SDL_Window* window;	
 	SDL_Event event;
 
-	static const uint32_t width = 800; // need to deciede if window can be resized or not
-	static const uint32_t height = 800;
-	static const uint32_t block_size = 100; // size of a 'pixel'
-	static const uint32_t grid_width = width / block_size;
-	static const uint32_t grid_height = height / block_size;
-	static const uint32_t grid_size = grid_width * grid_height;
+	std::shared_ptr<UnitUtilities> unit_utilities;
+	std::shared_ptr<Framebuffer> framebuffer;
 
 	const SDL_WindowFlags window_flags = SDL_WINDOW_SHOWN;
 	const char* window_title = "<Physics Sim>";
 	const SDL_RendererFlags renderer_flags = SDL_RENDERER_PRESENTVSYNC;
 
-	std::shared_ptr<UnitUtilities> unit_utilities;
-	std::shared_ptr<Framebuffer> framebuffer;
-
-	World* world;
+	Colour default_colour = { .red=10, .green=144, .blue=110, .alpha=255 };
+	uint32_t default_colour_data = default_colour.data();
 
 	bool open = true;
 

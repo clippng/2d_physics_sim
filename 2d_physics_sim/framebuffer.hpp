@@ -5,19 +5,31 @@
 #include <memory>
 #include <stdint.h>
 #include <vector>
+#include <any>
 
+// currently only support 4 channel 32bit colours
 class Framebuffer {
 public:
-	Framebuffer(std::shared_ptr<UnitUtilities> unit_utilities);
+	Framebuffer(std::shared_ptr<UnitUtilities> unit_utilities_ptr);
 	
 	~Framebuffer();
 
-	void writeToFramebuffer(const uint32_t position, const uint32_t colour);
+	uint32_t getSize();
+
+	int getRowSize();
+
+	void writeTo(const uint32_t position, const uint32_t colour);
+
+	void* readFrom();
 
 private:
-	std::vector<uint32_t>* data;
+	std::unique_ptr<std::vector<uint32_t>> data; // vector that can be written to
+
+	void* raw_data; // pointer to raw vector data (without vector data)
 
 	std::shared_ptr<UnitUtilities> unit_utilities;
 
+	uint32_t size;
 
+	int row_byte_size;
 };

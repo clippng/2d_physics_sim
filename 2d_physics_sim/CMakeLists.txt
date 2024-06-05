@@ -7,7 +7,11 @@ add_executable(
 
 	display.cpp
 	world.cpp
+	world_generation.cpp
 	block.cpp
+	utils.cpp
+	framebuffer.cpp
+	camera.cpp
 )
 
 target_link_libraries(2DPhysicsSim SDL2)
