@@ -34,12 +34,27 @@ void World::generate() {
 }
 
 void World::update() {
-	// for (auto row = 0; row < width; ++row) {
-	// 	for (auto column = 0; column < height; ++column) {
-	// 		// check if needs update
-	// 			// update 
-	// 	}
-	// }
+	// THE VOID FALLS UP
+	for (auto row = 0, i = 0; row < width; ++row) {
+		for (auto column = 0; column < height; ++column, ++i) {
+			if (row < height - 1) {
+				if (world_data->at(i + width) == NONE) {
+					world_data->at(i + width) = world_data->at(i);
+					world_data->at(i) = NONE;
+				}
+			} else if (row > 0) {
+				if (world_data->at(i - 1) == NONE) {
+					world_data->at(i - 1) = world_data->at(i);
+					world_data->at(i) = NONE;
+				}
+			} else if (row < height - 1) {
+				if (world_data->at(i + 1) == NONE) {
+					world_data->at(i + 1) = world_data->at(i);
+					world_data->at(i) = NONE;
+				}
+			}
+		}
+	}
 	camera->updateCamera();
 }
 

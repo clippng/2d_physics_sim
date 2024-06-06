@@ -15,8 +15,8 @@ int main() {
 		.pixel_size = 2,		
 		.window_width = 800,
 		.window_height = 800,
-		.world_width = 1000,
-		.world_height = 600,
+		.world_width = 400,
+		.world_height = 400,
 	};
 
 	std::shared_ptr<UnitUtilities> unit_utilities(new UnitUtilities(&unit_info));

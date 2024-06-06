@@ -11,7 +11,7 @@ namespace WorldGenerationTools {
 		std::srand(world_seed);
 
 		//deciede on ground level
-		const uint32_t water_level = world_height / 4;
+		const uint32_t water_level = 100;
 		const uint32_t max_slope = 3.0f;
 
 		int32_t slope;
@@ -65,7 +65,7 @@ namespace WorldGenerationTools {
 			for (uint32_t column = 0; column < world_width; ++column, ++i) {
 				float noise = getNoise(map(row, world_height, 0, 5, -5), map(column, world_width, 0, 5, -5));
 				if (noise > 0.8) {
-					if (row > ground_levels[column] && row > water_level) { world_data->at(i) = WATER; }
+					if (row > ground_levels[column] && row > water_level) { world_data->at(i) = NONE; }
 				}
 				
 			}
