@@ -28,6 +28,8 @@ public:
 	void writeToFrameBuffer();
 
 private:
+	void clampCamera();
+
 	const uint32_t width, height;
 
 	const float max_x, max_y;
@@ -42,10 +44,6 @@ private:
 
 	std::shared_ptr<Framebuffer> framebuffer;
 
-	const std::map<BlockType, uint32_t> colour_map = { 
-		{ BlockType::NONE, 0x00000000 }, 
-		{ BlockType::DIRT, 0x665439FF }, 
-		{ BlockType::SAND, 0xBFBE75FF },
-		{ BlockType::STONE, 0x4D4E52FF } 
-	};
+	// colour lookup array indexed by enum value of blocktype
+	const uint32_t colours[5] = { 0x18191AFF, 0x665439FF, 0xBFBE75FF, 0x4D4E52FF, 0x4574D180 };
 };

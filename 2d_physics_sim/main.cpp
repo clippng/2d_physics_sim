@@ -15,7 +15,7 @@ int main() {
 		.pixel_size = 2,		
 		.window_width = 800,
 		.window_height = 800,
-		.world_width = 800,
+		.world_width = 1000,
 		.world_height = 600,
 	};
 
@@ -25,8 +25,8 @@ int main() {
 	const WorldInitInfo world_info {
 		.unit_utilities_ptr = unit_utilities,
 		.framebuffer_ptr = framebuffer,
-		.camera_pos_x = 100,
-		.camera_pos_y = 100,
+		.camera_pos_x = 0,
+		.camera_pos_y = 0,
 	};
 
 	std::unique_ptr<World> world(new World(&world_info));

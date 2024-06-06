@@ -17,7 +17,7 @@ namespace WorldGenerationTools {
 	* 3. add variation -- different types of rocks / dirt etc
 	* 4. other details
 	*/
-	std::vector<std::vector<std::shared_ptr<Block>>> generateWorld(int64_t world_seed);
+	std::shared_ptr<std::vector<BlockType>> generateWorld(int64_t world_seed, uint32_t world_width, uint32_t world_height);
 
 	uint8_t getHash(int32_t value);
 	// should map a value to the range of -1 to 1
@@ -32,6 +32,7 @@ namespace WorldGenerationTools {
 
 	float getNoise(float x_coord, float y_coord);
 
+	// Original Perlin permutation set
 	constexpr uint8_t permutation_table[256] = {
 		151, 160, 137, 91,  90,  15,  131, 13,  201, 95,  96,  53,  194, 233, 7,
 		225, 140, 36,  103, 30,  69,  142, 8,   99,  37,  240, 21,  10,  23,  190,

@@ -27,7 +27,7 @@ public:
 	inline std::shared_ptr<Camera> getCamera() { return camera; }
 
 private:
-	const int64_t world_seed = -2123123487344076345;
+	const int64_t world_seed = -2123123487324076345;
 	const double normalised_world_seed = static_cast<double>(INT64_MAX / world_seed);
 
 	const uint32_t width, height, size; 

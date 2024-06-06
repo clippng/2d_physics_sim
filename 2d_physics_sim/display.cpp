@@ -53,7 +53,7 @@ void Display::update() {
 }
 
 void Display::drawFrame() {
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x0, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 	SDL_UpdateTexture(texture, NULL, framebuffer->readFrom(), framebuffer->getRowSize());
 	SDL_RenderCopy(renderer, texture, NULL, NULL);  		

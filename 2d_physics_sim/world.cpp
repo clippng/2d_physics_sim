@@ -8,8 +8,6 @@ World::World(const WorldInitInfo* init_info) :
 	width(init_info->unit_utilities_ptr->getWorldWidth()), 
 	height(init_info->unit_utilities_ptr->getWorldHeight()),
 	size(init_info->unit_utilities_ptr->getWorldSize()) {
-
-	world_data = std::shared_ptr<std::vector<BlockType>>(new std::vector<BlockType>(size, BlockType::NONE));
 		
 	unit_utilities = init_info->unit_utilities_ptr;
 
@@ -31,22 +29,8 @@ World::~World() {
 }
 
 void World::generate() {
-	world_data = std::shared_ptr<std::vector<BlockType>>(new std::vector<BlockType>(size));
-	for (uint32_t i = 0, row = 0; row < height; ++row) {
-		for (uint32_t column = 0; column < width; ++column, ++i) {
-			float noise = WorldGenerationTools::getNoise(row, column);
-			BlockType block;
-
-			if (noise > 0.5f) { 
-				block = BlockType::DIRT;
-			} else if (noise < 0.2f) {
-				block = BlockType::STONE;
-			} else {
-				block = BlockType::SAND;
-			}
-			world_data->at(i) = block;
-		}
-	}
+	srand(time(nullptr));
+	world_data = WorldGenerationTools::generateWorld(rand(), width, height);
 }
 
 void World::update() {

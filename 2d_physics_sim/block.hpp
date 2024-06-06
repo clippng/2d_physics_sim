@@ -2,11 +2,12 @@
 
 #include "utils.hpp"
 
-enum class BlockType {
+enum BlockType {
 	NONE = 0,
-	STONE = 1,
+	DIRT = 1,
 	SAND = 2,
-	DIRT = 3
+	STONE = 3,
+	WATER = 4
 };
 
 // need to have a way to list interactions between blocks
@@ -76,4 +77,11 @@ public:
 	Dirt();
 
 	inline uint32_t getColour() const override { return 0x665439FF; }
+};
+
+class Water : public Liquid {
+public:
+	Water();
+
+	inline uint32_t getColour() const override { return 0x0000FFFF; }
 };
