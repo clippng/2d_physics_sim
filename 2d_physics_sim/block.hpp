@@ -13,7 +13,7 @@ enum class BlockType {
 
 class Block {
 public:
-	virtual constexpr uint32_t getColour() = 0;
+	virtual uint32_t getColour() const = 0;
 
 protected:
 	Colour colour;
@@ -47,33 +47,33 @@ class Custom : public Block {
 public:
 	Custom(uint32_t colour);
 
-	inline uint32_t getColour() override { return colour_data; }
+	inline uint32_t getColour() const override { return colour_data; }
 };
 
 class Air : public Gas {
 public:
 	Air();
 
-	inline uint32_t getColour() override { return 0x00000000; }
+	inline uint32_t getColour() const override { return 0x00000000; }
 };
 
 class Stone : public Solid {
 public:
 	Stone();
 
-	inline uint32_t getColour() override { return 0x4D4E52FF; }
+	inline uint32_t getColour() const override { return 0x4D4E52FF; }
 };
 
 class Sand : public Solid {
 public: 
 	Sand();
 
-	inline uint32_t getColour() override { return 0xBFBE75FF; }
+	inline uint32_t getColour() const override { return 0xBFBE75FF; }
 };
 
 class Dirt : public Solid {
 public:
 	Dirt();
 
-	inline uint32_t getColour() override { return 0x665439FF; }
+	inline uint32_t getColour() const override { return 0x665439FF; }
 };

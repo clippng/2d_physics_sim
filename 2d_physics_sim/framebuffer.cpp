@@ -3,9 +3,9 @@
 Framebuffer::Framebuffer(std::shared_ptr<UnitUtilities> unit_utilities_ptr) {
 	unit_utilities = unit_utilities_ptr;
 	Colour default_colour = { .red=255, .green=0, .blue=0, .alpha=255 };
-	data = std::unique_ptr<std::vector<uint32_t>>(new std::vector<uint32_t>(unit_utilities->getGridSize(), default_colour.data()));
-	size = unit_utilities->getGridSize();
-	row_byte_size = unit_utilities->getGridWidth() * sizeof(uint32_t);
+	data = std::unique_ptr<std::vector<uint32_t>>(new std::vector<uint32_t>(unit_utilities->getCameraSize(), default_colour.data()));
+	size = unit_utilities->getCameraSize();
+	row_byte_size = unit_utilities->getCameraWidth() * sizeof(uint32_t);
 }
 
 Framebuffer::~Framebuffer() {
@@ -25,7 +25,6 @@ void Framebuffer::writeTo(const uint32_t index, const uint32_t colour) {
 }
 
 void* Framebuffer::readFrom() {
-	raw_data = (void*)data->data();
-	return raw_data;
+	return (void*)data->data();
 }
 

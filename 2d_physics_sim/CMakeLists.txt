@@ -12,6 +12,7 @@ add_executable(
 	utils.cpp
 	framebuffer.cpp
 	camera.cpp
+	event.cpp
 )
 
 target_link_libraries(2DPhysicsSim SDL2)

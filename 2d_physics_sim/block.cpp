@@ -1,6 +1,5 @@
 #include "block.hpp"
 
-
 Custom::Custom(uint32_t colour) {
 	colour_data = colour;
 }

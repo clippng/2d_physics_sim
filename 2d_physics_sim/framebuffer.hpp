@@ -25,8 +25,6 @@ public:
 private:
 	std::unique_ptr<std::vector<uint32_t>> data; // vector that can be written to
 
-	void* raw_data; // pointer to raw vector data (without vector data)
-
 	std::shared_ptr<UnitUtilities> unit_utilities;
 
 	uint32_t size;

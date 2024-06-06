@@ -5,8 +5,6 @@
 #include "utils.hpp"
 #include "framebuffer.hpp"
 
-#include <iostream>
-#include <vector>
 #include <memory>
 
 class Display {
@@ -22,7 +20,6 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
 	SDL_Window* window;	
-	SDL_Event event;
 
 	std::shared_ptr<UnitUtilities> unit_utilities;
 	std::shared_ptr<Framebuffer> framebuffer;
@@ -35,8 +32,6 @@ private:
 	uint32_t default_colour_data = default_colour.data();
 
 	bool open = true;
-
-	void pollEvents();	
 
 	void drawFrame();
 };
