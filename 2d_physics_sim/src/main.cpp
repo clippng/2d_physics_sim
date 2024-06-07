@@ -5,6 +5,9 @@
 #include "world.hpp"
 #include "event.hpp"
 
+// maybe jsut use a global state machine instead of random references everywhere
+// https://www.youtube.com/watch?v=u8wrPlpeO5A
+
 #include <iostream>
 // world object is self contained and only communicates to the display object by writing pixels to the framebuffer
 // that is shared between them. unit utilities is a sort of global namespace for unit constants and tools for conversion
