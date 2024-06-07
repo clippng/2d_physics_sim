@@ -30,7 +30,10 @@ void Event::pollEvents() {
 						break;
 					case SDLK_w:
 						camera->moveCamera(0, -2);
-						break;		
+						break;	
+					case SDLK_r:
+						// new world
+						break;	
 				}
 				break;
 

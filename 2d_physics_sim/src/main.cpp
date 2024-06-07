@@ -4,9 +4,12 @@
 #include "display.hpp"
 #include "world.hpp"
 #include "event.hpp"
+#include "clock.hpp"
 
 // maybe jsut use a global state machine instead of random references everywhere
 // https://www.youtube.com/watch?v=u8wrPlpeO5A
+
+// finish proof of concept then rewrite with vulkan possibly?
 
 #include <iostream>
 // world object is self contained and only communicates to the display object by writing pixels to the framebuffer
@@ -15,11 +18,11 @@
 // need to fix how world space is treated -- its unclear if its per pixel or per block
 int main() {
 	const UnitUtilitiesInitInfo unit_info {
-		.pixel_size = 2,		
+		.pixel_size = 4,		
 		.window_width = 800,
 		.window_height = 800,
-		.world_width = 400,
-		.world_height = 400,
+		.world_width = 200,
+		.world_height = 200,
 	};
 
 	std::shared_ptr<UnitUtilities> unit_utilities(new UnitUtilities(&unit_info));
@@ -41,10 +44,16 @@ int main() {
 
 	std::shared_ptr<Event> event_handler(new Event(&event_info));
 
+	std::unique_ptr<Clock> clock(new Clock(100));
+
 	while (!event_handler->shouldClose()) {
+		clock->startTick();
 		event_handler->pollEvents();
-		world->update();
-		display->update();
+		if (clock->needsUpdate()) {
+			world->update();
+			display->update();
+			clock->endTick();
+		}
 	}	
 
 	return EXIT_SUCCESS;

@@ -11,67 +11,74 @@ namespace WorldGenerationTools {
 		std::srand(world_seed);
 
 		//deciede on ground level
-		const uint32_t water_level = 100;
-		const uint32_t max_slope = 3.0f;
+		// const uint32_t water_level = 100;
+		// const uint32_t max_slope = 3.0f;
 
-		int32_t slope;
-		uint32_t ground_levels[world_width];
-		ground_levels[0] = water_level;
+		// int32_t slope;
+		// uint32_t ground_levels[world_width];
+		// ground_levels[0] = water_level;
 
-		for (uint32_t i = 1; i < world_width; ++i) {
-			slope = std::rand() / (RAND_MAX / max_slope);
-			if (rand() % 2 == 0) {
-				ground_levels[i] = ground_levels[i-1] - slope;
-			} else {
-				ground_levels[i] = ground_levels[i-1] + slope;			
-			}
-		}
+		// for (uint32_t i = 1; i < world_width; ++i) {
+		// 	slope = std::rand() / (RAND_MAX / max_slope);
+		// 	if (rand() % 2 == 0) {
+		// 		ground_levels[i] = ground_levels[i-1] - slope;
+		// 	} else {
+		// 		ground_levels[i] = ground_levels[i-1] + slope;			
+		// 	}
+		// }
 
-		// fill in ground
-		for (uint32_t i = 0, row = 0; row < world_height; ++row) {
-			for (uint32_t column = 0; column < world_width; ++column, ++i) {
-				BlockType block;
-				if (row > ground_levels[column]) {
-					float noise = getNoise(row, column);
-					if (noise > 0.3f) { 
-						block = DIRT;
-					} else if (noise < 0.1f) {
-						block = STONE;
-					} else {
-						block = SAND;
-					}
-				} else if (row > water_level) {
-					block = WATER;
-				} else {
-					block = NONE;
-				}
+		// // fill in ground
+		// for (uint32_t i = 0, row = 0; row < world_height; ++row) {
+		// 	for (uint32_t column = 0; column < world_width; ++column, ++i) {
+		// 		BlockType block;
+		// 		if (row > ground_levels[column]) {
+		// 			float noise = getNoise(row, column);
+		// 			if (noise > 0.3f) { 
+		// 				block = DIRT;
+		// 			} else if (noise < 0.1f) {
+		// 				block = STONE;
+		// 			} else {
+		// 				block = SAND;
+		// 			}
+		// 		} else if (row > water_level) {
+		// 			block = WATER;
+		// 		} else {
+		// 			block = NONE;
+		// 		}
 				
-				world_data->at(i) = block;
-			}
-		}
+		// 		world_data->at(i) = block;
+		// 	}
+		// }
 
-		// increase stone at lower levels 
-		for (uint32_t i = 0, row = 0; row < world_height; ++row) {
-			for (uint32_t column = 0; column < world_width; ++column, ++i) {
-				float noise = getNoise(row, column);
-				if (noise * map(row, world_height, 0, 1, 0) > 0.2) {
-					if (row > ground_levels[column]) { world_data->at(i) = STONE; }
-				}
-			}
-		}
+		// // increase stone at lower levels 
+		// for (uint32_t i = 0, row = 0; row < world_height; ++row) {
+		// 	for (uint32_t column = 0; column < world_width; ++column, ++i) {
+		// 		float noise = getNoise(row, column);
+		// 		if (noise * map(row, world_height, 0, 1, 0) > 0.2) {
+		// 			if (row > ground_levels[column]) { world_data->at(i) = STONE; }
+		// 		}
+		// 	}
+		// }
 
-		// caves 
-		for (uint32_t i = 0, row = 0; row < world_height; ++row) {
-			for (uint32_t column = 0; column < world_width; ++column, ++i) {
-				float noise = getNoise(map(row, world_height, 0, 5, -5), map(column, world_width, 0, 5, -5));
-				if (noise > 0.8) {
-					if (row > ground_levels[column] && row > water_level) { world_data->at(i) = NONE; }
-				}
+		// // caves 
+		// for (uint32_t i = 0, row = 0; row < world_height; ++row) {
+		// 	for (uint32_t column = 0; column < world_width; ++column, ++i) {
+		// 		float noise = getNoise(map(row, world_height, 0, 5, -5), map(column, world_width, 0, 5, -5));
+		// 		if (noise > 0.8) {
+		// 			if (row > ground_levels[column] && row > water_level) { world_data->at(i) = NONE; }
+		// 		}
 				
+		// 	}
+		// }
+
+		for (uint32_t i = 0; i < world_width * world_height; ++i) {
+			if (rand() < RAND_MAX / 10) {
+				world_data->at(i) = SAND;
 			}
+
 		}
 
-		
+		//world_data->at(world_width) = SAND;
 
 		return world_data;
 	}
