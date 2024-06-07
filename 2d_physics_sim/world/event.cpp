@@ -1,7 +1,7 @@
-#include "global.cpp"
 #include "event.hpp"
 
-Event::Event() {
+Event::Event(const EventInitInfo* init_info) {
+	camera = init_info->camera;
 	running = true;
 }
 
@@ -19,19 +19,19 @@ void Event::pollEvents() {
 						running = false;
 						break;	
 					case SDLK_a:
-						global.world->moveCamera(-2, 0);
+						camera->moveCamera(-2, 0);
 						break;
 					case SDLK_s:
-						global.world->moveCamera(0, 2);
+						camera->moveCamera(0, 2);
 						break;
 					case SDLK_d:
-						global.world->moveCamera(2, 0);
+						camera->moveCamera(2, 0);
 						break;
 					case SDLK_w:
-						global.world->moveCamera(0, -2);
+						camera->moveCamera(0, -2);
 						break;	
 					case SDLK_r:
-						global.world->generate();
+						// new world
 						break;	
 				} 
 				break;

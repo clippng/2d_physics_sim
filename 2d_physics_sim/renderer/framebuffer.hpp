@@ -1,14 +1,15 @@
 #pragma once
 
+#include "utils.hpp"
+
 #include <memory>
 #include <stdint.h>
 #include <vector>
 
-
 // currently only support 4 channel 32bit colours
 class Framebuffer {
 public:
-	Framebuffer();
+	Framebuffer(std::shared_ptr<GlobalConstants> unit_utilities_ptr);
 	
 	~Framebuffer();
 
@@ -22,6 +23,8 @@ public:
 
 private:
 	std::unique_ptr<std::vector<uint32_t>> data; // vector that can be written to
+
+	std::shared_ptr<GlobalConstants> unit_utilities;
 
 	uint32_t size;
 

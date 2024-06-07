@@ -1,11 +1,11 @@
 #include "display.hpp"
-#include "global.cpp"
 
 #include <iostream>
 
 
-Display::Display() { 
-	framebuffer = global.framebuffer;
+Display::Display(std::shared_ptr<Framebuffer> framebuffer_ptr, std::shared_ptr<GlobalConstants> unit_utilities_ptr) { 
+	framebuffer = framebuffer_ptr;
+	unit_utilities = unit_utilities_ptr;
 	
 	try {
 		SDL_Init(SDL_INIT_EVERYTHING);
@@ -13,7 +13,7 @@ Display::Display() {
 		window = SDL_CreateWindow(
 			window_title, 
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-			global.window_width, global.window_height, 
+			unit_utilities->getWindowWidth(), unit_utilities->getWindowHeight(), 
 			window_flags
 			);
 		renderer = SDL_CreateRenderer(
@@ -24,7 +24,7 @@ Display::Display() {
 		texture = SDL_CreateTexture(
 			renderer, 
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 
-			global.camera_width, global.camera_height
+			unit_utilities->getCameraWidth(), unit_utilities->getCameraHeight()
 			);
 
 		if (window == NULL || renderer == NULL || texture == NULL) {

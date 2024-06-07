@@ -1,18 +1,19 @@
 #include "camera.hpp"
 #include "math.h"
-#include "global.cpp"
 
-// #include <iostream>
+#include <iostream>
 
-Camera::Camera(std::shared_ptr<std::vector<BlockType>> world_data_ptr) :  
-	width(global.camera_width),
-	height(global.camera_height),
-	max_x(global.world_width - global.camera_width),
-	max_y(global.world_height - global.camera_height) {
-	framebuffer = global.framebuffer;
-	world_data = world_data_ptr;
-	pos_x = 0;
-	pos_y = 0;
+Camera::Camera(CameraInitInfo* init_info) :  
+	width(init_info->unit_utilities_ptr->getCameraWidth()),
+	height(init_info->unit_utilities_ptr->getCameraHeight()),
+	max_x(init_info->unit_utilities_ptr->getWorldWidth() - init_info->unit_utilities_ptr->getCameraWidth()),
+	max_y(init_info->unit_utilities_ptr->getWorldHeight() - init_info->unit_utilities_ptr->getCameraHeight()) {
+	framebuffer = init_info->framebuffer_ptr;
+	world_data = init_info->world_data_ptr;
+	unit_utilities = init_info->unit_utilities_ptr;
+	pos_x = init_info->pos_x;
+	pos_y = init_info->pos_y;	
+	std::cout << max_x << " " << max_y << std::endl;
 }
 
 
@@ -43,11 +44,11 @@ void Camera::updateCamera() {
 
 void Camera::writeToFrameBuffer() {
 	clampCamera();
-	for (uint32_t row = pos_y, i = 0; row < pos_y + global.camera_height; ++row) {
-		for (uint32_t column = pos_x, local_column = 0; column < pos_x + global.camera_width; ++column, ++i) {
+	for (uint32_t row = pos_y, i = 0; row < pos_y + unit_utilities->getCameraHeight(); ++row) {
+		for (uint32_t column = pos_x, local_column = 0; column < pos_x + unit_utilities->getCameraWidth(); ++column, ++i) {
 			// should use current map        
 			                             
-			framebuffer->writeTo(i, colours[world_data->at(row * global.world_width + column)]);
+			framebuffer->writeTo(i, colours[world_data->at(row * unit_utilities->getWorldWidth() + column)]);
 		}
 	}
 }
