@@ -34,3 +34,10 @@ Dirt::Dirt() {
 	density = 0.5f;
 	hardness = 0.2f;
 }
+
+Water::Water() {
+	Colour colour = { .red=0, .green=0, .blue=255, .alpha=255 };
+	uint32_t colour_data = colour.data();
+	id = BlockType::WATER;
+	density = 0.5f;
+}

@@ -15,15 +15,16 @@
 // world object is self contained and only communicates to the display object by writing pixels to the framebuffer
 // that is shared between them. unit utilities is a sort of global namespace for unit constants and tools for conversion
 
-// yea ive decieded this project might be beyond saving the structure is just so bad -- will probably port it to opengl or 
-// vulkan soon
+// yea ive decieded this project might be beyond saving the structure is just so bad -- will probably remake it in opengl or
+// vulkan sometime soon
 int main() {
+	// doesnt work with non square windows
 	const GlobalConstantsInitInfo unit_info {
-		.pixel_size = 4,		
+		.pixel_size = 8,		
 		.window_width = 800,
 		.window_height = 800,
 		.world_width = 200,
-		.world_height = 200,
+		.world_height = 100,
 	};
 
 	std::shared_ptr<GlobalConstants> global_constants(new GlobalConstants(&unit_info));
@@ -36,11 +37,11 @@ int main() {
 		.camera_pos_y = 0,
 	};
 
-	std::unique_ptr<World> world(new World(&world_info));
+	std::shared_ptr<World> world(new World(&world_info));
 	std::unique_ptr<Display> display(new Display(framebuffer, global_constants));
 
 	const EventInitInfo event_info {
-		.camera = world->getCamera()
+		.world_ptr = world
 	};
 
 	std::shared_ptr<Event> event_handler(new Event(&event_info));

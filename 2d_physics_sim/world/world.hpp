@@ -1,12 +1,10 @@
 #pragma once
 
-#include <deque>
 #include <vector>
 #include <memory>
 
 #include "block.hpp"
 #include "camera.hpp"
-#include "event.hpp"
 
 struct WorldInitInfo {
 	std::shared_ptr<GlobalConstants> unit_utilities_ptr;
@@ -24,7 +22,7 @@ public:
 
 	void update(); // update the physics for each block
 
-	inline std::shared_ptr<Camera> getCamera() { return camera; }
+	void moveCamera(float offset_x, float offset_y);
 
 private:
 	const int64_t world_seed = -2123123487324076345;

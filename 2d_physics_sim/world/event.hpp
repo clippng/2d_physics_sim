@@ -2,10 +2,10 @@
 
 #include <SDL2/SDL_events.h>
 
-#include "camera.hpp"
+#include "world.hpp"
 
 struct EventInitInfo {
-	std::shared_ptr<Camera> camera;
+	std::shared_ptr<World> world_ptr;
 };
 
 class Event {
@@ -19,7 +19,7 @@ public:
 private:
 	SDL_Event event;
 
-	std::shared_ptr<Camera> camera; 
+	std::shared_ptr<World> world; 
 
 	bool running;
 };

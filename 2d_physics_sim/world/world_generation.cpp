@@ -2,7 +2,7 @@
 
 #include <cmath>
 //#include <random>
-#include <iostream>
+//#include <iostream>
 
 namespace WorldGenerationTools {
 	std::shared_ptr<std::vector<BlockType>> generateWorld(int64_t world_seed, uint32_t world_width, uint32_t world_height) {
@@ -73,7 +73,7 @@ namespace WorldGenerationTools {
 
 		for (uint32_t i = 0; i < world_width * world_height; ++i) {
 			if (rand() < RAND_MAX / 10) {
-				world_data->at(i) = SAND;
+				world_data->at(i) = WATER;
 			}
 
 		}
