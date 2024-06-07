@@ -9,7 +9,7 @@
 
 class Display {
 public:
-	Display(std::shared_ptr<Framebuffer> framebuffer_ptr, std::shared_ptr<UnitUtilities> unit_utilities_ptr);
+	Display();
 	~Display();
 
 	bool running();
@@ -21,8 +21,7 @@ private:
 	SDL_Texture* texture;
 	SDL_Window* window;	
 
-	std::shared_ptr<UnitUtilities> unit_utilities;
-	std::shared_ptr<Framebuffer> framebuffer;
+	Framebuffer* framebuffer;
 
 	const SDL_WindowFlags window_flags = SDL_WINDOW_SHOWN;
 	const char* window_title = "<Physics Sim>";

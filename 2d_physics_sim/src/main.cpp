@@ -6,53 +6,47 @@
 #include "event.hpp"
 #include "clock.hpp"
 
+#include "global.hpp"
+
 // maybe jsut use a global state machine instead of random references everywhere
 // https://www.youtube.com/watch?v=u8wrPlpeO5A
 
 // finish proof of concept then rewrite with vulkan possibly?
 
-#include <iostream>
+// #include <iostream>
 // world object is self contained and only communicates to the display object by writing pixels to the framebuffer
 // that is shared between them. unit utilities is a sort of global namespace for unit constants and tools for conversion
 
 // need to fix how world space is treated -- its unclear if its per pixel or per block
 int main() {
-	const UnitUtilitiesInitInfo unit_info {
-		.pixel_size = 4,		
-		.window_width = 800,
-		.window_height = 800,
-		.world_width = 200,
-		.world_height = 200,
-	};
+	struct Global {	
+		// global objects variables state
+		Framebuffer *framebuffer;
+		Display *display;
+		World *world;
+		Event *event_handler;
+		Clock *clock;
 
-	std::shared_ptr<UnitUtilities> unit_utilities(new UnitUtilities(&unit_info));
-	std::shared_ptr<Framebuffer>framebuffer(new Framebuffer(unit_utilities));
+		const uint32_t pixel_size = 4; // size of pixel ie how many real pixels make up one side of a surface pixel
+		const uint32_t window_width = 800; 
+		const uint32_t window_height = 800;
+		const uint32_t world_width = 200;
+		const uint32_t world_height = 200;
+		const uint32_t camera_width = 200;
+		const uint32_t camera_height = 200;
+		const uint32_t world_size = world_height * world_width;
+		const uint32_t window_size = window_height * window_width;
+		const uint32_t camera_size = camera_height * camera_width;
+		const std::chrono::milliseconds tick_length = std::chrono::milliseconds(100);
+	} global;	
 
-	const WorldInitInfo world_info {
-		.unit_utilities_ptr = unit_utilities,
-		.framebuffer_ptr = framebuffer,
-		.camera_pos_x = 0,
-		.camera_pos_y = 0,
-	};
-
-	std::unique_ptr<World> world(new World(&world_info));
-	std::unique_ptr<Display> display(new Display(framebuffer, unit_utilities));
-
-	const EventInitInfo event_info {
-		.camera = world->getCamera()
-	};
-
-	std::shared_ptr<Event> event_handler(new Event(&event_info));
-
-	std::unique_ptr<Clock> clock(new Clock(100));
-
-	while (!event_handler->shouldClose()) {
-		clock->startTick();
-		event_handler->pollEvents();
-		if (clock->needsUpdate()) {
-			world->update();
-			display->update();
-			clock->endTick();
+	while (!global.event_handler->shouldClose()) {
+		global.clock->startTick();
+		global.event_handler->pollEvents();
+		if (global.clock->needsUpdate()) {
+			global.world->update();
+			global.display->update();
+			global.clock->endTick();
 		}
 	}	
 

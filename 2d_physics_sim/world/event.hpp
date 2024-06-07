@@ -6,13 +6,9 @@
 
 #include "camera.hpp"
 
-struct EventInitInfo {
-	std::shared_ptr<Camera> camera;
-};
-
 class Event {
 public:
-	Event(const EventInitInfo* init_info);
+	Event();
 	~Event();
 	inline bool shouldClose() { return !running; };
 
@@ -20,8 +16,6 @@ public:
 
 private:
 	SDL_Event event;
-
-	std::shared_ptr<Camera> camera; 
 
 	bool running;
 };

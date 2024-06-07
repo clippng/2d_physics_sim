@@ -1,27 +1,18 @@
 
 #include "world.hpp"
 #include "world_generation.hpp"
+#include "global.cpp"
 
-#include <iostream>
+// #include <iostream>
 
-World::World(const WorldInitInfo* init_info) :
-	width(init_info->unit_utilities_ptr->getWorldWidth()), 
-	height(init_info->unit_utilities_ptr->getWorldHeight()),
-	size(init_info->unit_utilities_ptr->getWorldSize()) {
-		
-	unit_utilities = init_info->unit_utilities_ptr;
+World::World() :
+	width(global.world_width), 
+	height(global.world_width),
+	size(global.world_size) {
 
 	generate();
 
-	CameraInitInfo camera_info {
-		.unit_utilities_ptr = init_info->unit_utilities_ptr,
-		.framebuffer_ptr = init_info->framebuffer_ptr,
-		.world_data_ptr = world_data,
-		.pos_x = 0,
-		.pos_y = 0
-	};
-
-	camera = std::shared_ptr<Camera>(new Camera(&camera_info));
+	camera = std::shared_ptr<Camera>(new Camera(world_data));
 }
 
 World::~World() {
@@ -59,6 +50,6 @@ void World::update() {
 	camera->updateCamera();
 }
 
-void World::updateCurrentBlockMap() {
-
+void World::moveCamera(float offset_x, float offset_y) {
+	camera->moveCamera(offset_x, offset_y);
 }

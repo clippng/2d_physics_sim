@@ -1,7 +1,7 @@
+#pragma once
+
 #include <cstdint>
 #include <chrono>
-
-using tick = std::chrono::duration<int, std::ratio<1, 1000>>;
 
 class Clock {
 public:

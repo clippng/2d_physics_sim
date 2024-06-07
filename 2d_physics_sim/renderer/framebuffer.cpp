@@ -1,11 +1,13 @@
 #include "framebuffer.hpp"
 
-Framebuffer::Framebuffer(std::shared_ptr<UnitUtilities> unit_utilities_ptr) {
-	unit_utilities = unit_utilities_ptr;
+#include "global.cpp"
+#include "utils.hpp"
+
+Framebuffer::Framebuffer() {
 	Colour default_colour = { .red=255, .green=0, .blue=0, .alpha=255 };
-	data = std::unique_ptr<std::vector<uint32_t>>(new std::vector<uint32_t>(unit_utilities->getCameraSize(), default_colour.data()));
-	size = unit_utilities->getCameraSize();
-	row_byte_size = unit_utilities->getCameraWidth() * sizeof(uint32_t);
+	data = std::unique_ptr<std::vector<uint32_t>>(new std::vector<uint32_t>(global.camera_size, default_colour.data()));
+	size = global.camera_size;
+	row_byte_size = global.camera_width * sizeof(uint32_t);
 }
 
 Framebuffer::~Framebuffer() {
