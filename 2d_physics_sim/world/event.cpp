@@ -34,7 +34,7 @@ void Event::pollEvents() {
 					case SDLK_r:
 						// new world
 						break;	
-				}
+				} 
 				break;
 
 			case SDL_QUIT:
